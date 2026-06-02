@@ -8,31 +8,34 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#0a0a0a;color:#e5e5e5;font-family:'Courier New',monospace;min-height:100vh}
   a{color:#f5f500}
-  /* HEADER */
   #header{background:#111;border-bottom:1px solid #222;padding:14px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:10}
   .logo{font-family:Impact,sans-serif;font-size:22px;letter-spacing:4px;color:#f5f500;font-weight:900}
   #header-title{flex:1;font-size:13px;color:#999;letter-spacing:1px}
-  /* BUTTONS */
   .btn{background:#f5f500;color:#000;border:none;border-radius:3px;padding:12px 20px;font-family:'Courier New',monospace;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:1px}
   .btn:hover{background:#ffe500}
+  .btn-google{background:#fff;color:#333;border:1px solid #ccc;border-radius:4px;padding:12px 20px;font-family:sans-serif;font-weight:500;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;margin-top:8px}
+  .btn-google:hover{background:#f5f5f5}
   .btn-sm{background:transparent;border:1px solid #333;color:#ccc;border-radius:3px;padding:6px 12px;font-size:11px;cursor:pointer;font-family:'Courier New',monospace;letter-spacing:.5px}
   .btn-sm:hover{border-color:#555;color:#fff}
   .btn-sm:disabled{opacity:.3;cursor:default}
   .btn-xs{background:transparent;border:1px solid #333;color:#888;border-radius:3px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:'Courier New',monospace}
   .btn-go{background:#f5f500;color:#000;border:none;border-radius:3px;padding:12px 28px;font-family:'Courier New',monospace;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:1px}
   .btn-go:hover{background:#ffe500}
-  /* SCREENS */
-  .screen{display:none}
-  .screen.active{display:block}
-  /* SETUP */
-  #setup-card{max-width:480px;margin:60px auto;background:#111;border:1px solid #222;border-radius:4px;padding:40px 36px;display:flex;flex-direction:column;gap:10px}
+  .screen{display:none}.screen.active{display:block}
+  #setup-card{max-width:520px;margin:60px auto;background:#111;border:1px solid #222;border-radius:4px;padding:40px 36px;display:flex;flex-direction:column;gap:10px}
   .logo-sub{color:#888;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
-  .setup-hint{color:#666;font-size:12px;margin-bottom:8px}
+  .setup-hint{color:#666;font-size:12px;margin-bottom:8px;line-height:1.7}
   label{font-size:11px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:8px;display:block}
   input,select{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:3px;color:#e5e5e5;padding:10px 12px;font-size:13px;outline:none;width:100%;font-family:'Courier New',monospace}
   input:focus,select:focus{border-color:#444}
-  .hint{font-size:11px;color:#555;margin:2px 0 4px}
-  /* DASHBOARD */
+  .hint{font-size:11px;color:#555;margin:2px 0 4px;line-height:1.6}
+  .step-block{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:3px;padding:16px;margin-top:8px}
+  .step-title{font-size:11px;color:#f5f500;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+  .step-body{font-size:12px;color:#777;line-height:1.9}
+  .step-body b{color:#aaa}
+  .divider{border:none;border-top:1px solid #1e1e1e;margin:16px 0}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+  .dot-ok{background:#4ade80}.dot-no{background:#555}
   #refresh-bar{padding:12px 24px;background:#0d0d0d;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:12px;font-size:12px;color:#666}
   #vendor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:#1a1a1a}
   .vendor-card{background:#0d0d0d;padding:20px 16px;display:flex;flex-direction:column;gap:8px}
@@ -40,10 +43,8 @@
   .vendor-card.has-error{background:#1a0a0a;border-left:2px solid #5a1a1a}
   .vendor-name{font-size:18px;font-weight:700;letter-spacing:1px;color:#fff}
   .vendor-count{font-size:11px;color:#666}
-  /* LOG */
   #log-box{padding:24px 32px;font-size:13px;line-height:2;color:#aaa}
   .log-line{border-left:2px solid #222;padding-left:12px;margin-bottom:4px}
-  /* REVIEW */
   #review-bar{padding:16px 24px;background:#111;border-bottom:1px solid #1e1e1e;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   #product-list{padding:16px 24px;display:flex;flex-direction:column;gap:16px;padding-bottom:100px}
   .product-card{background:#111;border:1px solid #1e1e1e;border-radius:4px;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
@@ -62,21 +63,17 @@
   .field-input.missing{border-color:#5a2020;background:#1a0a0a}
   .field-input[readonly]{background:#111}
   .note-line{font-size:11px;color:#666;font-style:italic}
-  /* GO BAR */
   #go-bar{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
   #go-summary{font-size:12px;color:#666}
-  /* PROGRESS */
   #progress-list{padding:32px;display:flex;flex-direction:column;gap:12px}
   .progress-item{display:flex;align-items:center;gap:14px;font-size:13px}
   .progress-icon{font-size:16px;width:20px;text-align:center}
   .progress-title{color:#ccc}
   .progress-error{color:#f87171;font-size:11px;margin-left:8px}
-  /* DONE */
   #done-box{max-width:480px;margin:80px auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
   #done-tick{font-size:64px;color:#f5f500}
   #done-title{font-size:24px;font-weight:700;letter-spacing:2px}
   #done-log{color:#4ade80;font-size:13px;line-height:2}
-  .spinner{color:#f5f500;margin-top:16px;font-size:14px;animation:pulse 1s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
   select option{background:#0d0d0d}
 </style>
@@ -87,8 +84,9 @@
 <div id="header" style="display:none">
   <span class="logo">UKSC</span>
   <span id="header-title">Dashboard</span>
+  <span id="drive-status" style="font-size:11px;color:#555"></span>
   <button class="btn-sm" id="btn-refresh" onclick="checkAllPending()">↻ Refresh</button>
-  <button class="btn-sm" onclick="showScreen('setup')" style="margin-left:4px">⚙ Tokens</button>
+  <button class="btn-sm" onclick="showScreen('setup')" style="margin-left:4px">⚙ Settings</button>
 </div>
 
 <!-- SETUP SCREEN -->
@@ -96,23 +94,68 @@
   <div id="setup-card">
     <div class="logo">UKSC</div>
     <div class="logo-sub">Store Onboarder</div>
-    <p class="setup-hint">Tokens are saved in your browser — enter once and they persist.</p>
 
-    <label>Google Drive OAuth Token</label>
-    <input type="password" id="inp-drive" placeholder="ya29.xxx…"/>
-    <p class="hint">Get from <a href="https://developers.google.com/oauthplayground" target="_blank">OAuth Playground</a> → scope: https://www.googleapis.com/auth/drive</p>
+    <!-- STEP 1: Google Drive -->
+    <div class="step-block">
+      <div class="step-title">Step 1 — Google Drive</div>
+      <div id="drive-auth-status" style="font-size:12px;color:#555;margin-bottom:10px">
+        <span class="status-dot dot-no"></span>Not connected
+      </div>
+      <div class="step-body" id="drive-setup-hint">
+        You need a Google Cloud OAuth Client ID.<br>
+        <b>One-time setup (5 min):</b> See instructions below ↓
+      </div>
+      <label style="margin-top:12px">Google OAuth Client ID</label>
+      <input type="text" id="inp-client-id" placeholder="xxxx.apps.googleusercontent.com"/>
+      <p class="hint">From Google Cloud Console → Credentials → OAuth 2.0 Client IDs</p>
+      <button class="btn-google" id="btn-google-auth" onclick="startGoogleAuth()">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-3.59-13.46-8.66l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Sign in with Google
+      </button>
+    </div>
 
-    <label>Shopify Admin Access Token</label>
-    <input type="password" id="inp-shopify" placeholder="shpat_xxx…"/>
+    <!-- STEP 2: Shopify -->
+    <div class="step-block">
+      <div class="step-title">Step 2 — Shopify</div>
+      <label>Admin Access Token</label>
+      <input type="password" id="inp-shopify" placeholder="shpat_xxx…"/>
+      <p class="hint">Settings → Apps → Develop apps → your app → API credentials</p>
+      <label>Store Domain</label>
+      <input type="text" id="inp-domain" value="ukstylishclub.myshopify.com"/>
+    </div>
 
-    <label>Shopify Store Domain</label>
-    <input type="text" id="inp-domain" placeholder="yourstore.myshopify.com" value="ukstylishclub.myshopify.com"/>
+    <!-- STEP 3: Anthropic -->
+    <div class="step-block">
+      <div class="step-title">Step 3 — Anthropic (Image Analysis)</div>
+      <label>API Key</label>
+      <input type="password" id="inp-claude" placeholder="sk-ant-xxx…"/>
+      <p class="hint">console.anthropic.com → API Keys → Create Key</p>
+    </div>
 
-    <label>Anthropic API Key</label>
-    <input type="password" id="inp-claude" placeholder="sk-ant-xxx…"/>
-    <p class="hint">Used for image analysis only — stays in your browser</p>
+    <button class="btn" onclick="handleSetup()" style="margin-top:8px">Open Dashboard →</button>
 
-    <button class="btn" onclick="handleSetup()" style="margin-top:16px">Connect & Open Dashboard →</button>
+    <hr class="divider"/>
+
+    <!-- ONE-TIME GOOGLE SETUP INSTRUCTIONS -->
+    <details>
+      <summary style="cursor:pointer;color:#666;font-size:11px;letter-spacing:1px;text-transform:uppercase">▶ How to get your Google OAuth Client ID (one-time)</summary>
+      <div class="step-body" style="margin-top:12px">
+        <b>1.</b> Go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a><br>
+        <b>2.</b> Create a new project (e.g. "UKSC Onboarder")<br>
+        <b>3.</b> Go to <b>APIs & Services → Enable APIs</b> → enable <b>Google Drive API</b><br>
+        <b>4.</b> Go to <b>APIs & Services → OAuth consent screen</b><br>
+        &nbsp;&nbsp;&nbsp;• User type: <b>External</b> → Create<br>
+        &nbsp;&nbsp;&nbsp;• App name: UKSC Onboarder, your email, save<br>
+        &nbsp;&nbsp;&nbsp;• Scopes: add <b>../auth/drive</b> → save<br>
+        &nbsp;&nbsp;&nbsp;• Test users: add <b>bilalshami@gmail.com</b><br>
+        <b>5.</b> Go to <b>Credentials → Create Credentials → OAuth Client ID</b><br>
+        &nbsp;&nbsp;&nbsp;• Type: <b>Web application</b><br>
+        &nbsp;&nbsp;&nbsp;• Authorised JavaScript origins: <b>https://bilalzdeveloper.github.io</b><br>
+        &nbsp;&nbsp;&nbsp;• Authorised redirect URIs: <b>https://bilalzdeveloper.github.io/uksc-onboarder/</b><br>
+        <b>6.</b> Copy the <b>Client ID</b> and paste it above<br>
+        <b>7.</b> Click "Sign in with Google" — done forever ✓
+      </div>
+    </details>
   </div>
 </div>
 
@@ -132,7 +175,7 @@
 <!-- REVIEW SCREEN -->
 <div id="screen-review" class="screen">
   <div id="review-bar">
-    <label style="margin:0;display:inline">Global price (apply all):</label>
+    <label style="margin:0;display:inline">Global price:</label>
     <input type="text" id="global-price" placeholder="£" style="width:80px;margin:0 8px"/>
     <button class="btn-sm" onclick="applyGlobalPrice()">Apply All</button>
   </div>
@@ -159,7 +202,7 @@
 </div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────────
+// ── VENDORS ───────────────────────────────────────────────────────────────────
 const VENDORS = [
   { name:"Siim", pendingId:"1IJIHJqFR-U3W9XJuKMbd_h0wV1Z7ijPR", onboardedId:"1fCTuLRpqM2hXtzdzcEPplh6DeCkAQ4Za" },
   { name:"Sim",  pendingId:"1BF2s6jCxnfsOmDKHuQwNVrbfcS1RSfVX", onboardedId:"1bEP4C4VghoEafAsO3JWlnBPRNjWf53fl" },
@@ -196,11 +239,9 @@ const COLLECTION_MAP = {
   "Tracksuit":"Tracksuits For Men","Joggers":"Tracksuits For Men","Sweatpants":"Tracksuits For Men",
   "Hoodie":"Tracksuits For Men","Jacket":"Tracksuits For Men","Coat":"Tracksuits For Men",
   "Trainers":"Trainers & Footwear","Sneakers":"Trainers & Footwear","Shoes":"Trainers & Footwear",
-  "Jeans":"Jeans","Trousers":"Jeans",
-  "Bag":"Unisex Bags","Backpack":"Unisex Bags",
+  "Jeans":"Jeans","Trousers":"Jeans","Bag":"Unisex Bags","Backpack":"Unisex Bags",
   "Socks":"Socks For Men","Boxers":"Boxers and Shorts","Underwear":"Boxers and Shorts",
-  "Perfume":"Perfumes For Her","Fragrance":"Perfumes For Her",
-  "Wallet":"Men Wallet & Bag"
+  "Perfume":"Perfumes For Her","Fragrance":"Perfumes For Her","Wallet":"Men Wallet & Bag"
 };
 const PRODUCT_TYPES = Object.keys(COLLECTION_MAP);
 const CLOTHING_SIZES = ["S","M","L","XL","XXL"];
@@ -208,56 +249,128 @@ const SHOE_SIZES = ["UK 6","UK 7","UK 8","UK 9","UK 10","UK 11","UK 12"];
 const FOOTWEAR_TYPES = ["Trainers","Sneakers","Shoes"];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let cfg = { driveToken:"", shopifyToken:"", shopifyDomain:"ukstylishclub.myshopify.com", claudeKey:"" };
+let cfg = {
+  clientId: "", shopifyToken: "", shopifyDomain: "ukstylishclub.myshopify.com", claudeKey: "",
+  accessToken: "", refreshToken: "", tokenExpiry: 0, userEmail: ""
+};
 let selectedVendor = null;
 let products = [];
 let doneLog = [];
 
-// Persist tokens in localStorage
 function loadSaved() {
-  try {
-    const s = localStorage.getItem("uksc_cfg");
-    if (s) { cfg = {...cfg, ...JSON.parse(s)}; }
-  } catch {}
+  try { const s = localStorage.getItem("uksc_cfg2"); if (s) cfg = {...cfg, ...JSON.parse(s)}; } catch {}
 }
 function saveCfg() {
-  try { localStorage.setItem("uksc_cfg", JSON.stringify(cfg)); } catch {}
+  try { localStorage.setItem("uksc_cfg2", JSON.stringify(cfg)); } catch {}
 }
 
-// ── SCREEN MANAGEMENT ─────────────────────────────────────────────────────────
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-'+name).classList.add('active');
-  const header = document.getElementById('header');
-  if (name === 'setup') {
-    header.style.display = 'none';
-  } else {
-    header.style.display = 'flex';
-    const titles = {dashboard:'Vendor Dashboard',scan:'Scanning…',review:'Review Products',progress:'Creating Products…',done:'Done'};
-    document.getElementById('header-title').textContent = titles[name] || '';
-    document.getElementById('btn-refresh').style.display = name === 'dashboard' ? 'inline-block' : 'none';
-  }
+// ── GOOGLE OAUTH (PKCE) ───────────────────────────────────────────────────────
+function generateCodeVerifier() {
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return btoa(String.fromCharCode(...arr)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+async function generateCodeChallenge(verifier) {
+  const data = new TextEncoder().encode(verifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return btoa(String.fromCharCode(...new Uint8Array(digest))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
 }
 
-// ── SETUP ─────────────────────────────────────────────────────────────────────
-function handleSetup() {
-  cfg.driveToken = document.getElementById('inp-drive').value.trim();
-  cfg.shopifyToken = document.getElementById('inp-shopify').value.trim();
-  cfg.shopifyDomain = document.getElementById('inp-domain').value.trim();
-  cfg.claudeKey = document.getElementById('inp-claude').value.trim();
-  if (!cfg.driveToken || !cfg.shopifyToken || !cfg.claudeKey) {
-    alert("Please fill in Drive token, Shopify token, and Anthropic API key.");
-    return;
-  }
+async function startGoogleAuth() {
+  const clientId = document.getElementById('inp-client-id').value.trim();
+  if (!clientId) { alert("Enter your Google OAuth Client ID first"); return; }
+  cfg.clientId = clientId;
   saveCfg();
-  showScreen('dashboard');
-  checkAllPending();
+
+  const verifier = generateCodeVerifier();
+  const challenge = await generateCodeChallenge(verifier);
+  sessionStorage.setItem('pkce_verifier', verifier);
+
+  const params = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: window.location.href.split('?')[0].split('#')[0],
+    response_type: 'code',
+    scope: 'https://www.googleapis.com/auth/drive openid email',
+    code_challenge: challenge,
+    code_challenge_method: 'S256',
+    access_type: 'offline',
+    prompt: 'consent'
+  });
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 }
 
-// ── DRIVE HELPERS ─────────────────────────────────────────────────────────────
+async function handleOAuthCallback(code) {
+  const verifier = sessionStorage.getItem('pkce_verifier');
+  const redirectUri = window.location.href.split('?')[0].split('#')[0];
+
+  // Exchange code for tokens using CORS-friendly token endpoint
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      code, client_id: cfg.clientId,
+      redirect_uri: redirectUri,
+      grant_type: 'authorization_code',
+      code_verifier: verifier
+    })
+  });
+  const data = await res.json();
+  if (data.error) { alert(`Auth error: ${data.error_description}`); return; }
+
+  cfg.accessToken = data.access_token;
+  cfg.refreshToken = data.refresh_token || cfg.refreshToken;
+  cfg.tokenExpiry = Date.now() + (data.expires_in * 1000) - 60000;
+
+  // Get user email
+  const me = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+    headers: { Authorization: `Bearer ${cfg.accessToken}` }
+  });
+  const meData = await me.json();
+  cfg.userEmail = meData.email || '';
+  saveCfg();
+
+  // Clean URL
+  window.history.replaceState({}, '', window.location.pathname);
+  updateDriveStatus();
+}
+
+async function ensureFreshToken() {
+  if (Date.now() < cfg.tokenExpiry) return; // still valid
+  if (!cfg.refreshToken) throw new Error("Drive session expired — please sign in again in ⚙ Settings");
+
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: cfg.clientId,
+      grant_type: 'refresh_token',
+      refresh_token: cfg.refreshToken
+    })
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(`Token refresh failed: ${data.error_description}`);
+  cfg.accessToken = data.access_token;
+  cfg.tokenExpiry = Date.now() + (data.expires_in * 1000) - 60000;
+  saveCfg();
+}
+
+function updateDriveStatus() {
+  const el = document.getElementById('drive-auth-status');
+  if (!el) return;
+  if (cfg.accessToken && cfg.userEmail) {
+    el.innerHTML = `<span class="status-dot dot-ok"></span>Connected as <b style="color:#aaa">${cfg.userEmail}</b>`;
+  } else {
+    el.innerHTML = `<span class="status-dot dot-no"></span>Not connected`;
+  }
+  const headerStatus = document.getElementById('drive-status');
+  if (headerStatus && cfg.userEmail) headerStatus.textContent = `● ${cfg.userEmail}`;
+}
+
+// ── DRIVE API ─────────────────────────────────────────────────────────────────
 async function driveList(folderId) {
-  const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+(mimeType+contains+'image/')+and+trashed=false&fields=files(id,name,mimeType)&pageSize=100&access_token=${encodeURIComponent(cfg.driveToken)}`;
-  const r = await fetch(url);
+  await ensureFreshToken();
+  const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+(mimeType+contains+'image/')+and+trashed=false&fields=files(id,name,mimeType)&pageSize=100`;
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${cfg.accessToken}` } });
   if (r.status === 401) throw new Error("401");
   if (!r.ok) throw new Error(`Drive error ${r.status}`);
   const d = await r.json();
@@ -265,11 +378,11 @@ async function driveList(folderId) {
 }
 
 async function driveDownloadB64(fileId, mimeType) {
-  // Pass token as query param — avoids CORS preflight on Drive media downloads
-  const r = await fetch(
-    `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&access_token=${encodeURIComponent(cfg.driveToken)}`
-  );
-  if (r.status === 401) throw new Error("Drive token expired — refresh it in ⚙ Tokens");
+  await ensureFreshToken();
+  const r = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+    headers: { Authorization: `Bearer ${cfg.accessToken}` }
+  });
+  if (r.status === 401) throw new Error("Drive token expired");
   if (!r.ok) throw new Error(`Download failed ${r.status}`);
   const blob = await r.blob();
   return new Promise((res, rej) => {
@@ -281,16 +394,16 @@ async function driveDownloadB64(fileId, mimeType) {
 }
 
 async function driveMoveToOnboarded(fileId, fileName, onboardedId) {
+  await ensureFreshToken();
   const today = new Date().toISOString().slice(0,10);
-  const newName = `${today}_${fileName}`;
-  const token = encodeURIComponent(cfg.driveToken);
-  await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}/copy?access_token=${token}`, {
+  await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}/copy`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: newName, parents: [onboardedId] })
+    headers: { Authorization: `Bearer ${cfg.accessToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: `${today}_${fileName}`, parents: [onboardedId] })
   });
-  await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?access_token=${token}`, {
-    method: 'DELETE'
+  await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${cfg.accessToken}` }
   });
 }
 
@@ -308,8 +421,7 @@ async function analyseImage(b64, mimeType) {
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 500,
+      model: 'claude-sonnet-4-20250514', max_tokens: 500,
       messages: [{ role: 'user', content: [
         { type: 'image', source: { type: 'base64', media_type: mimeType, data: b64 } },
         { type: 'text', text: prompt }
@@ -318,11 +430,11 @@ async function analyseImage(b64, mimeType) {
   });
   const d = await r.json();
   const txt = d.content?.find(b => b.type === 'text')?.text || '{}';
-  try { return JSON.parse(txt.replace(/```json|```/g, '').trim()); }
+  try { return JSON.parse(txt.replace(/```json|```/g,'').trim()); }
   catch { return { productType:'Unknown', brand:'Unknown', styleName:'', colours:['Black'], isFootwear:false, confidence:'low', notes:'Parse error' }; }
 }
 
-// ── SHOPIFY HELPERS ───────────────────────────────────────────────────────────
+// ── SHOPIFY ───────────────────────────────────────────────────────────────────
 async function shopifyGql(query, variables={}) {
   const r = await fetch(`https://${cfg.shopifyDomain}/admin/api/2024-01/graphql.json`, {
     method: 'POST',
@@ -332,14 +444,14 @@ async function shopifyGql(query, variables={}) {
   return r.json();
 }
 
-let _collectionCache = null;
+let _colCache = null;
 async function getCollectionId(title) {
-  if (!_collectionCache) {
+  if (!_colCache) {
     const d = await shopifyGql(`{ collections(first:100){ edges{ node{ id title } } } }`);
-    _collectionCache = d.data?.collections?.edges || [];
+    _colCache = d.data?.collections?.edges || [];
   }
-  const match = _collectionCache.find(e => e.node.title.toLowerCase().includes(title.toLowerCase()));
-  return match?.node?.id || null;
+  const m = _colCache.find(e => e.node.title.toLowerCase().includes(title.toLowerCase()));
+  return m?.node?.id || null;
 }
 
 async function stagedUpload(filename, mimeType, b64) {
@@ -363,28 +475,21 @@ async function createProduct(prod) {
   const variants = [];
   for (const colour of colours)
     for (const size of sizes)
-      variants.push({ price:prod.price, options:[size,colour], inventoryPolicy:'CONTINUE' });
+      variants.push({ price: prod.price, options:[size,colour], inventoryPolicy:'CONTINUE' });
 
   const mediaUrls = [];
   for (const img of prod.images) {
-    try {
-      const url = await stagedUpload(img.name, img.mimeType, img.b64);
-      if (url) mediaUrls.push(url);
-    } catch {}
+    try { const u = await stagedUpload(img.name, img.mimeType, img.b64); if(u) mediaUrls.push(u); } catch {}
   }
 
   const d = await shopifyGql(`
     mutation productCreate($input:ProductInput!,$media:[CreateMediaInput!]) {
       productCreate(input:$input,media:$media) {
-        product { id title }
-        userErrors { field message }
+        product { id } userErrors { field message }
       }
     }`, {
-    input:{
-      title:prod.title, vendor:selectedVendor.name, productType:prod.productType,
-      status:'ACTIVE', tags:[selectedVendor.name, prod.productType],
-      variants, options:['Size','Colour']
-    },
+    input:{ title:prod.title, vendor:selectedVendor.name, productType:prod.productType,
+      status:'ACTIVE', tags:[selectedVendor.name, prod.productType], variants, options:['Size','Colour'] },
     media: mediaUrls.map(url=>({ originalSource:url, mediaContentType:'IMAGE' }))
   });
 
@@ -394,23 +499,47 @@ async function createProduct(prod) {
 
   if (productId && prod.collection && !prod.collection.includes('⚠️')) {
     const colId = await getCollectionId(prod.collection);
-    if (colId) {
-      await shopifyGql(`
-        mutation collectionAddProducts($id:ID!,$productIds:[ID!]!) {
-          collectionAddProducts(id:$id,productIds:$productIds) { userErrors { message } }
-        }`, { id:colId, productIds:[productId] });
-    }
+    if (colId) await shopifyGql(`
+      mutation collectionAddProducts($id:ID!,$productIds:[ID!]!) {
+        collectionAddProducts(id:$id,productIds:$productIds) { userErrors { message } }
+      }`, { id:colId, productIds:[productId] });
   }
   return productId;
 }
 
+// ── SCREENS ───────────────────────────────────────────────────────────────────
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  const header = document.getElementById('header');
+  header.style.display = name === 'setup' ? 'none' : 'flex';
+  if (name !== 'setup') {
+    const titles = {dashboard:'Vendor Dashboard',scan:'Scanning…',review:'Review Products',progress:'Creating Products…',done:'Done'};
+    document.getElementById('header-title').textContent = titles[name] || '';
+    document.getElementById('btn-refresh').style.display = name === 'dashboard' ? 'inline-block' : 'none';
+  }
+}
+
+// ── SETUP ─────────────────────────────────────────────────────────────────────
+function handleSetup() {
+  cfg.clientId = document.getElementById('inp-client-id').value.trim();
+  cfg.shopifyToken = document.getElementById('inp-shopify').value.trim();
+  cfg.shopifyDomain = document.getElementById('inp-domain').value.trim();
+  cfg.claudeKey = document.getElementById('inp-claude').value.trim();
+  if (!cfg.accessToken) { alert("Please sign in with Google first."); return; }
+  if (!cfg.shopifyToken || !cfg.claudeKey) { alert("Please fill in Shopify token and Anthropic key."); return; }
+  saveCfg();
+  showScreen('dashboard');
+  checkAllPending();
+}
+
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function checkAllPending() {
-  _collectionCache = null;
+  _colCache = null;
   const statusEl = document.getElementById('refresh-status');
   const refreshBtn = document.getElementById('btn-refresh');
   statusEl.textContent = 'Scanning all vendor folders…';
-  refreshBtn.disabled = true;
+  if (refreshBtn) refreshBtn.disabled = true;
 
   const results = await Promise.allSettled(VENDORS.map(v => driveList(v.pendingId)));
   let authFail = false;
@@ -424,29 +553,26 @@ async function checkAllPending() {
     else { err = true; if (r.reason?.message?.includes('401')) authFail = true; }
 
     const card = document.createElement('div');
-    card.className = 'vendor-card' + (count>0?' has-pending':'') + (err?' has-error':'');
+    card.className = 'vendor-card'+(count>0?' has-pending':'')+(err?' has-error':'');
     card.innerHTML = `
       <div class="vendor-name">${v.name}</div>
-      <div class="vendor-count">${err ? '⚠️ error' : count+' pending'}</div>
-      <button class="btn-sm" ${count===0?'disabled':''} onclick="startScan(${i})">${count>0?'Onboard →':'Empty'}</button>`;
+      <div class="vendor-count">${err?'⚠️ error':count+' pending'}</div>
+      <button class="btn-sm" ${count===0&&!err?'disabled':''} onclick="startScan(${i})">${count>0?'Onboard →':err?'retry':'Empty'}</button>`;
     grid.appendChild(card);
   });
 
   const total = results.reduce((a,r)=>a+(r.status==='fulfilled'?r.value.length:0),0);
   statusEl.textContent = `${total} images pending across ${VENDORS.length} vendors`;
-  refreshBtn.disabled = false;
-
-  if (authFail) alert('⚠️ Drive token expired. Click ⚙ Tokens to refresh it.');
+  if (refreshBtn) refreshBtn.disabled = false;
+  if (authFail) { alert('Drive session expired. Go to ⚙ Settings and sign in with Google again.'); showScreen('setup'); }
 }
 
 // ── SCAN ──────────────────────────────────────────────────────────────────────
-function log(msg) {
+function addLog(msg) {
   const box = document.getElementById('log-box');
   const line = document.createElement('div');
-  line.className = 'log-line';
-  line.textContent = msg;
-  box.appendChild(line);
-  box.scrollTop = box.scrollHeight;
+  line.className = 'log-line'; line.textContent = msg;
+  box.appendChild(line); box.scrollTop = box.scrollHeight;
 }
 
 async function startScan(vendorIdx) {
@@ -457,21 +583,26 @@ async function startScan(vendorIdx) {
   document.getElementById('header-title').textContent = `Scanning ${selectedVendor.name}…`;
 
   try {
-    log(`📁 Scanning ${selectedVendor.name} Pending folder…`);
+    addLog(`📁 Scanning ${selectedVendor.name} Pending folder…`);
     const files = await driveList(selectedVendor.pendingId);
-    if (!files.length) { log('⚠️ No images found.'); return; }
-    log(`✅ Found ${files.length} image(s). Downloading & analysing…`);
+    if (!files.length) { addLog('⚠️ No images found.'); return; }
+    addLog(`✅ Found ${files.length} image(s). Downloading & analysing…`);
 
     const analysed = [];
     for (let i=0; i<files.length; i++) {
       const f = files[i];
-      log(`🔍 (${i+1}/${files.length}) Analysing: ${f.name}`);
-      const b64 = await driveDownloadB64(f.id, f.mimeType);
-      const info = await analyseImage(b64, f.mimeType);
-      analysed.push({...f, b64, info});
+      addLog(`🔍 (${i+1}/${files.length}) ${f.name}`);
+      try {
+        const b64 = await driveDownloadB64(f.id, f.mimeType);
+        const info = await analyseImage(b64, f.mimeType);
+        analysed.push({...f, b64, info});
+      } catch(e) {
+        addLog(`  ⚠️ Skipped: ${e.message}`);
+      }
     }
 
-    // Group by brand+type+style
+    if (!analysed.length) { addLog('❌ No images could be analysed.'); return; }
+
     const groups = {};
     for (const img of analysed) {
       const key = `${img.info.brand}__${img.info.productType}__${img.info.styleName}`;
@@ -488,15 +619,15 @@ async function startScan(vendorIdx) {
       return { id:idx+1, title, productType:pType, collection,
         colours: s.colours?.join(', ') || 'Black',
         sizes: isFootwear ? SHOE_SIZES.join(', ') : CLOTHING_SIZES.join(', '),
-        price:'', images:imgs, skip:false, confidence:s.confidence, notes:s.notes, isFootwear };
+        price:'', images:imgs, skip:false, confidence:s.confidence, notes:s.notes };
     });
 
-    log(`✅ Identified ${products.length} distinct product(s). Building review…`);
+    addLog(`✅ Identified ${products.length} distinct product(s).`);
     renderReview();
     showScreen('review');
     document.getElementById('header-title').textContent = `Review — ${selectedVendor.name}`;
   } catch(e) {
-    log(`❌ Error: ${e.message}`);
+    addLog(`❌ ${e.message}`);
   }
 }
 
@@ -506,37 +637,24 @@ function renderReview() {
   list.innerHTML = '';
   products.forEach((prod, idx) => {
     const card = document.createElement('div');
-    card.className = 'product-card' + (prod.skip?' skipped':'');
-    card.id = `card-${idx}`;
-
-    const typeOptions = [...PRODUCT_TYPES,'Unknown'].map(t =>
-      `<option value="${t}" ${t===prod.productType?'selected':''}>${t}</option>`).join('');
-
+    card.className = 'product-card'+(prod.skip?' skipped':'');
+    const typeOpts = [...PRODUCT_TYPES,'Unknown'].map(t=>`<option value="${t}"${t===prod.productType?' selected':''}>${t}</option>`).join('');
     card.innerHTML = `
       <div class="product-header">
         <span class="product-num">#${prod.id}</span>
         <span class="badge ${prod.confidence==='low'?'badge-low':'badge-high'}">${prod.confidence==='low'?'⚠️ Low confidence':'✓ Good'}</span>
         <button class="btn-xs" onclick="toggleSkip(${idx})">${prod.skip?'↩ Restore':'✕ Skip'}</button>
       </div>
-      <div class="thumb-row">
-        ${prod.images.map(img=>`<img class="thumb" src="data:${img.mimeType};base64,${img.b64}" alt="${img.name}"/>`).join('')}
+      <div class="thumb-row">${prod.images.map(img=>`<img class="thumb" src="data:${img.mimeType};base64,${img.b64}"/>`).join('')}</div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">Title</label><input class="field-input" value="${prod.title}" onchange="products[${idx}].title=this.value"/></div>
+        <div class="field"><label class="field-label">Type</label><select class="field-input" onchange="updateType(${idx},this.value)">${typeOpts}</select></div>
+        <div class="field"><label class="field-label">Collection</label><input class="field-input" readonly value="${prod.collection}" id="col-${idx}"/></div>
       </div>
       <div class="field-row">
-        <div class="field"><label class="field-label">Title</label>
-          <input class="field-input" value="${prod.title}" onchange="products[${idx}].title=this.value"/></div>
-        <div class="field"><label class="field-label">Type</label>
-          <select class="field-input" onchange="updateType(${idx},this.value)">${typeOptions}</select></div>
-        <div class="field"><label class="field-label">Collection</label>
-          <input class="field-input" readonly value="${prod.collection}" id="col-${idx}"/></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Colours</label>
-          <input class="field-input" value="${prod.colours}" onchange="products[${idx}].colours=this.value"/></div>
-        <div class="field"><label class="field-label">Sizes</label>
-          <input class="field-input" value="${prod.sizes}" onchange="products[${idx}].sizes=this.value"/></div>
-        <div class="field"><label class="field-label">Price (£)</label>
-          <input class="field-input ${prod.price?'':'missing'}" value="${prod.price}" placeholder="Required"
-            id="price-${idx}" onchange="products[${idx}].price=this.value;this.classList.toggle('missing',!this.value)"/></div>
+        <div class="field"><label class="field-label">Colours</label><input class="field-input" value="${prod.colours}" onchange="products[${idx}].colours=this.value"/></div>
+        <div class="field"><label class="field-label">Sizes</label><input class="field-input" value="${prod.sizes}" onchange="products[${idx}].sizes=this.value"/></div>
+        <div class="field"><label class="field-label">Price (£)</label><input class="field-input${prod.price?'':' missing'}" value="${prod.price}" placeholder="Required" id="price-${idx}" onchange="products[${idx}].price=this.value;this.classList.toggle('missing',!this.value)"/></div>
       </div>
       ${prod.notes?`<div class="note-line">📝 ${prod.notes}</div>`:''}`;
     list.appendChild(card);
@@ -544,29 +662,16 @@ function renderReview() {
   updateGoSummary();
 }
 
-function toggleSkip(idx) {
-  products[idx].skip = !products[idx].skip;
-  renderReview();
-}
-function updateType(idx, val) {
-  products[idx].productType = val;
-  products[idx].collection = COLLECTION_MAP[val] || '⚠️ Unknown';
-  document.getElementById(`col-${idx}`).value = products[idx].collection;
-}
+function toggleSkip(idx) { products[idx].skip=!products[idx].skip; renderReview(); }
+function updateType(idx,val) { products[idx].productType=val; products[idx].collection=COLLECTION_MAP[val]||'⚠️ Unknown'; document.getElementById(`col-${idx}`).value=products[idx].collection; }
 function applyGlobalPrice() {
-  const p = document.getElementById('global-price').value.trim();
-  if (!p) return;
-  products.forEach((prod,i) => {
-    prod.price = p;
-    const el = document.getElementById(`price-${i}`);
-    if (el) { el.value = p; el.classList.remove('missing'); }
-  });
+  const p = document.getElementById('global-price').value.trim(); if(!p) return;
+  products.forEach((_,i)=>{ products[i].price=p; const el=document.getElementById(`price-${i}`); if(el){el.value=p;el.classList.remove('missing');} });
   updateGoSummary();
 }
 function updateGoSummary() {
-  const active = products.filter(p=>!p.skip);
-  const imgs = active.reduce((a,p)=>a+p.images.length,0);
-  document.getElementById('go-summary').textContent = `${active.length} products · ${imgs} images`;
+  const active=products.filter(p=>!p.skip);
+  document.getElementById('go-summary').textContent=`${active.length} products · ${active.reduce((a,p)=>a+p.images.length,0)} images`;
 }
 
 // ── GO ────────────────────────────────────────────────────────────────────────
@@ -579,7 +684,6 @@ async function handleGo() {
   doneLog = [];
   const list = document.getElementById('progress-list');
   list.innerHTML = '';
-
   const items = active.map(p => {
     const el = document.createElement('div');
     el.className = 'progress-item';
@@ -590,39 +694,53 @@ async function handleGo() {
 
   let created=0, archived=0;
   for (let i=0; i<active.length; i++) {
-    const prod = active[i];
     const icon = items[i].querySelector('.progress-icon');
     icon.textContent='⏳'; icon.style.color='#facc15';
     try {
-      await createProduct(prod);
+      await createProduct(active[i]);
       created++;
       icon.textContent='✓'; icon.style.color='#4ade80';
-      for (const img of prod.images) {
+      for (const img of active[i].images) {
         try { await driveMoveToOnboarded(img.id, img.name, selectedVendor.onboardedId); archived++; } catch {}
       }
     } catch(e) {
       icon.textContent='✕'; icon.style.color='#f87171';
-      const errEl = document.createElement('span');
-      errEl.className='progress-error'; errEl.textContent=e.message;
+      const errEl=document.createElement('span'); errEl.className='progress-error'; errEl.textContent=e.message;
       items[i].appendChild(errEl);
     }
   }
-
-  doneLog.push(`✅ ${created} products created, ${archived} images archived to Onboarded.`);
+  doneLog.push(`✅ ${created} products created, ${archived} images archived.`);
   document.getElementById('done-log').innerHTML = doneLog.map(l=>`<div>${l}</div>`).join('');
   showScreen('done');
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 loadSaved();
-if (cfg.driveToken && cfg.shopifyToken && cfg.claudeKey) {
-  document.getElementById('inp-drive').value = cfg.driveToken;
-  document.getElementById('inp-shopify').value = cfg.shopifyToken;
-  document.getElementById('inp-domain').value = cfg.shopifyDomain;
-  document.getElementById('inp-claude').value = cfg.claudeKey;
+
+// Handle OAuth callback
+const urlParams = new URLSearchParams(window.location.search);
+const oauthCode = urlParams.get('code');
+if (oauthCode) {
+  document.getElementById('inp-client-id').value = cfg.clientId || '';
+  document.getElementById('inp-shopify').value = cfg.shopifyToken || '';
+  document.getElementById('inp-domain').value = cfg.shopifyDomain || '';
+  document.getElementById('inp-claude').value = cfg.claudeKey || '';
+  showScreen('setup');
+  handleOAuthCallback(oauthCode).then(() => {
+    updateDriveStatus();
+  });
+} else if (cfg.accessToken && cfg.shopifyToken && cfg.claudeKey && cfg.userEmail) {
+  // Already fully set up
   showScreen('dashboard');
+  updateDriveStatus();
   checkAllPending();
 } else {
+  // Pre-fill saved values
+  if (cfg.clientId) document.getElementById('inp-client-id').value = cfg.clientId;
+  if (cfg.shopifyToken) document.getElementById('inp-shopify').value = cfg.shopifyToken;
+  if (cfg.shopifyDomain) document.getElementById('inp-domain').value = cfg.shopifyDomain;
+  if (cfg.claudeKey) document.getElementById('inp-claude').value = cfg.claudeKey;
+  updateDriveStatus();
   showScreen('setup');
 }
 </script>
