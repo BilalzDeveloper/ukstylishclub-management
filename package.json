@@ -1,8 +1,8 @@
 {
-  "name": "store-os",
+  "name": "ukstylishclub-management",
   "version": "0.1.0",
   "private": true,
-  "description": "Autonomous Shopify store manager — Telegram intake, AI onboarding, multi-channel catalog, prepaid-proof orders, pluggable fulfillment.",
+  "description": "Ukstylishclub Management — Telegram intake, AI onboarding, multi-channel catalog, prepaid-proof orders, pluggable fulfillment, marketing & analytics workspace.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

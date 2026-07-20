@@ -1,0 +1,5 @@
+{
+  "telegram_last_update_id": null,
+  "last_run": null,
+  "note": "Managed by the telegram-onboarding skill. telegram_last_update_id is the last processed Telegram update offset; last_run is the ISO date of the latest run whose sheet is in runs/."
+}
