@@ -1,0 +1,306 @@
+// Store OS — data model
+// Mirrors docs/data-model.md. This is the source of truth for persistent state.
+//
+// Status: scaffold for the code-later phase. `prisma validate` should pass.
+// Run `pnpm prisma migrate dev` once a DATABASE_URL is configured.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Vendors ────────────────────────────────────────────────────────────────
+// Each vendor is also modelled as a Shopify Location (see ADR-0002) so that a
+// multi-vendor order splits natively into one fulfillment order per location.
+model Vendor {
+  id                String        @id @default(cuid())
+  name              String
+  telegramUserId    String?       @unique // sender id used to map incoming messages
+  telegramHandle    String?
+  shopifyLocationId String?       @unique // GID of the Shopify Location for this vendor
+  status            VendorStatus  @default(PENDING)
+  pickupAddress     String?
+  payoutTerms       String? // free-text terms, e.g. "weekly, on delivery"
+  leadTimeDays      Int           @default(1)
+  reliabilityScore  Float         @default(1.0)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  products          Product[]
+  ingestionJobs     IngestionJob[]
+  marginRules       MarginRule[]
+  fulfillments      Fulfillment[]
+  payouts           VendorPayout[]
+}
+
+enum VendorStatus {
+  PENDING // unknown sender awaiting approval
+  ACTIVE
+  PAUSED
+}
+
+// ── Ingestion ──────────────────────────────────────────────────────────────
+// Raw inbound vendor message captured from Telegram, parsed by AI into a spec.
+model IngestionJob {
+  id            String         @id @default(cuid())
+  source        IngestionSource @default(TELEGRAM)
+  vendorId      String?
+  vendor        Vendor?         @relation(fields: [vendorId], references: [id])
+  rawPayload    Json // original message: text, photo file ids, sender, timestamp
+  parsedSpec    Json? // AI output: title, description, attributes, cost hints, image groups
+  confidence    Float? // 0..1 AI confidence used for auto-publish vs review
+  state         IngestionState  @default(RECEIVED)
+  error         String?
+  productId     String?         @unique
+  product       Product?        @relation(fields: [productId], references: [id])
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+enum IngestionSource {
+  TELEGRAM
+  MANUAL
+  LEGACY_ONBOARDER
+}
+
+enum IngestionState {
+  RECEIVED
+  ANALYZING
+  REVIEW // low confidence — waits for manager
+  PUBLISHING
+  PUBLISHED
+  FAILED
+}
+
+// ── Products ───────────────────────────────────────────────────────────────
+model Product {
+  id               String        @id @default(cuid())
+  vendorId         String
+  vendor           Vendor        @relation(fields: [vendorId], references: [id])
+  title            String
+  description      String?
+  category         String?
+  images           Json // ordered list of image URLs / Shopify media ids
+  attributes       Json? // sizes, colours, etc.
+  cost             Decimal?      @db.Decimal(12, 2) // what we pay the vendor
+  sellPrice        Decimal?      @db.Decimal(12, 2) // computed from a MarginRule
+  marginRuleId     String?
+  marginRule       MarginRule?   @relation(fields: [marginRuleId], references: [id])
+  status           ProductStatus @default(DRAFT)
+  shopifyProductId String?       @unique // GID once published
+  confidence       Float?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  ingestionJob     IngestionJob?
+  orderLines       OrderLine[]
+}
+
+enum ProductStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+// ── Pricing ────────────────────────────────────────────────────────────────
+model MarginRule {
+  id         String        @id @default(cuid())
+  name       String
+  scope      MarginScope   @default(GLOBAL)
+  vendorId   String? // when scope = VENDOR
+  vendor     Vendor?       @relation(fields: [vendorId], references: [id])
+  collection String? // when scope = COLLECTION
+  markupType MarkupType    @default(PERCENT)
+  markupValue Decimal      @db.Decimal(12, 4) // % (e.g. 0.4) or fixed amount
+  floorPrice Decimal?      @db.Decimal(12, 2)
+  targetMargin Decimal?    @db.Decimal(12, 4)
+  priority   Int           @default(0) // higher wins when multiple rules match
+  active     Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  products   Product[]
+}
+
+enum MarginScope {
+  GLOBAL
+  VENDOR
+  COLLECTION
+}
+
+enum MarkupType {
+  PERCENT
+  FIXED
+}
+
+// ── Customers ──────────────────────────────────────────────────────────────
+model Customer {
+  id               String   @id @default(cuid())
+  shopifyCustomerId String? @unique
+  name             String?
+  phone            String?
+  telegramUserId   String?
+  whatsappId       String?
+  instagramId      String?
+  address          Json?
+  reliabilityScore Float    @default(1.0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  orders           Order[]
+}
+
+// ── Orders ─────────────────────────────────────────────────────────────────
+// Mirrored from Shopify (orders/create webhook). One Order can span multiple
+// vendors → multiple Fulfillment records.
+model Order {
+  id              String       @id @default(cuid())
+  shopifyOrderId  String       @unique
+  shopifyName     String? // e.g. "#1001"
+  customerId      String?
+  customer        Customer?    @relation(fields: [customerId], references: [id])
+  total           Decimal      @db.Decimal(12, 2)
+  currency        String       @default("USD")
+  status          OrderStatus  @default(PENDING_PAYMENT)
+  approvedAt      DateTime? // when the manager approved the daily batch
+  approvedBy      String?
+  expiresAt       DateTime? // auto-cancel + restock if unpaid by then
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  lines           OrderLine[]
+  payment         Payment?
+  fulfillments    Fulfillment[]
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT // awaiting transfer + proof
+  PROOF_SUBMITTED // proof received, matched or needs review
+  APPROVED // manager approved batch → released to fulfillment
+  DISPATCHED
+  DELIVERED
+  CANCELLED
+}
+
+model OrderLine {
+  id         String  @id @default(cuid())
+  orderId    String
+  order      Order   @relation(fields: [orderId], references: [id])
+  productId  String?
+  product    Product? @relation(fields: [productId], references: [id])
+  title      String
+  quantity   Int
+  unitPrice  Decimal @db.Decimal(12, 2)
+  unitCost   Decimal? @db.Decimal(12, 2) // snapshot of vendor cost for settlement
+  vendorId   String? // resolved vendor for routing/pickup
+}
+
+// ── Payments (prepaid transfer/wallet + proof) ─────────────────────────────
+model Payment {
+  id              String       @id @default(cuid())
+  orderId         String       @unique
+  order           Order        @relation(fields: [orderId], references: [id])
+  method          PaymentMethod @default(BANK_TRANSFER)
+  proofImageUrl   String?
+  proofImageHash  String? // perceptual/sha hash for duplicate detection
+  extractedAmount Decimal?     @db.Decimal(12, 2)
+  extractedRef    String?
+  extractedPayer  String?
+  matchState      MatchState   @default(NONE)
+  verifiedBy      String? // manager who confirmed in the batch
+  verifiedAt      DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  WALLET
+}
+
+enum MatchState {
+  NONE
+  MATCHED // amount/ref matched within tolerance
+  MISMATCH // needs manager review
+  DUPLICATE // proof image reused
+}
+
+// ── Fulfillment (pluggable courier) ────────────────────────────────────────
+// One per vendor/location for a given order.
+model Fulfillment {
+  id                 String           @id @default(cuid())
+  orderId            String
+  order              Order            @relation(fields: [orderId], references: [id])
+  vendorId           String
+  vendor             Vendor           @relation(fields: [vendorId], references: [id])
+  provider           String // FulfillmentProvider adapter key, e.g. "message_dispatch"
+  shopifyFulfillmentOrderId String?
+  pickupRef          String? // courier's pickup id / draft reference
+  trackingNumber     String?
+  trackingUrl        String?
+  status             FulfillmentStatus @default(PENDING)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+}
+
+enum FulfillmentStatus {
+  PENDING
+  REQUESTED // pickup requested from courier
+  PICKED_UP
+  IN_TRANSIT
+  DELIVERED
+  FAILED
+}
+
+// ── Settlement & reporting ─────────────────────────────────────────────────
+model VendorPayout {
+  id         String   @id @default(cuid())
+  vendorId   String
+  vendor     Vendor   @relation(fields: [vendorId], references: [id])
+  periodStart DateTime
+  periodEnd  DateTime
+  cogsTotal  Decimal  @db.Decimal(12, 2)
+  paid       Boolean  @default(false)
+  paidAt     DateTime?
+  createdAt  DateTime @default(now())
+}
+
+model ProfitSnapshot {
+  id          String   @id @default(cuid())
+  periodStart DateTime
+  periodEnd   DateTime
+  revenue     Decimal  @db.Decimal(12, 2)
+  cogs        Decimal  @db.Decimal(12, 2)
+  margin      Decimal  @db.Decimal(12, 2)
+  breakdown   Json? // per-vendor / per-category detail
+  createdAt   DateTime @default(now())
+}
+
+// ── Catalog broadcast ──────────────────────────────────────────────────────
+model BroadcastRun {
+  id         String   @id @default(cuid())
+  runDate    DateTime
+  channels   Json // which BroadcastChannel adapters were used
+  productIds Json // items included in this day's catalog
+  stats      Json? // per-channel delivery / read stats
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+}
+
+// ── Background jobs (DB-backed queue) ──────────────────────────────────────
+model JobRun {
+  id         String   @id @default(cuid())
+  kind       String // "ingestion", "catalog", "order_expiry", ...
+  payload    Json?
+  status     String   @default("queued") // queued | running | done | failed
+  attempts   Int      @default(0)
+  runAfter   DateTime @default(now())
+  error      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
