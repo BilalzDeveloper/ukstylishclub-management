@@ -1,7 +1,8 @@
 # Ukstylishclub Management — workspace guide
 
 This repo is the single hub for running **UK Stylish Club**
-(`ukstylishclub.myshopify.com`). It has two layers:
+(`uk-stylish.myshopify.com`, storefront `www.ukstylishclub.com`). It has two
+layers:
 
 1. **The system blueprint** (`docs/`, `src/`, `prisma/`) — the autonomous
    store-management application being built per `docs/roadmap.md`. `src/` is
@@ -20,7 +21,10 @@ current flow, and never modify it unless explicitly asked.
 
 ## Store profile
 
-- **Store:** UK Stylish Club (UKSC), `ukstylishclub.myshopify.com`, prices in GBP, UK market.
+- **Store:** UK Stylish Club (UKSC), `uk-stylish.myshopify.com`
+  (storefront `www.ukstylishclub.com`), Shopify Basic plan, prices in GBP, UK
+  market. (The legacy app referenced `ukstylishclub.myshopify.com` — the live
+  connected store is `uk-stylish`; trust the MCP's `get-shop-info`.)
 - **What we sell:** affordable branded menswear/streetwear — tees, tracksuits,
   trainers, jeans, accessories; small unisex-bag and women's-fragrance lines.
   Reseller model: vendors hold the stock; our income is the margin
@@ -38,10 +42,12 @@ current flow, and never modify it unless explicitly asked.
 - **Vendors:** 27 codes — Siim, Sim, Son, Ad, Ahm, D, Fr, Alll, Al, Cho, Shii,
   Che, Mon, Afi, Sh, Zero, Dar, Nwdr, Zz, Mz, Za, Rag, Tag, Uptk, Daup, Ham,
   Oooo. The vendor code appears in product titles and tags.
-- **Conventions:** titles `<Vendor> <Brand> <Type> <Style>` (note: vendor codes
-  leading titles hurt SEO — the `seo-refresh` skill addresses this); tags
-  `[vendor, productType]`; sizes S–XXL for apparel, UK 6–12 for footwear;
-  options Size/Colour.
+- **Conventions:** the legacy onboarder produced titles
+  `<Vendor> <Brand> <Type> <Style>` with tags `[vendor, productType]`; sizes
+  S–XXL for apparel, UK 6–12 for footwear; options Size/Colour. **The live
+  catalog does not consistently follow this** (first live audit found generic
+  titles like "Shoes", "Tshirt") — check the real products before assuming,
+  and note vendor codes leading titles hurt SEO (`seo-refresh` addresses this).
 
 ## Product intake: Telegram
 
