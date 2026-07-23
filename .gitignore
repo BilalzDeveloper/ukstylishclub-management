@@ -36,3 +36,10 @@ scratch/
 # Test / coverage
 coverage/
 .turbo/
+
+# Next.js generated
+next-env.d.ts
+*.tsbuildinfo
+
+# Interim JSON persistence (dev; Prisma is the production target)
+.data/
