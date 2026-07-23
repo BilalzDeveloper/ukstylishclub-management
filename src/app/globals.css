@@ -107,3 +107,28 @@ p.lede { color: var(--muted); margin-top: 6px; font-size: 14px; max-width: 640px
 
 footer.foot { color: #5a5a5a; font-size: 12px; padding: 30px 28px; border-top: 1px solid var(--border); margin-top: 30px; }
 footer.foot a { color: var(--muted); }
+
+/* Review queue */
+.queue { display: flex; flex-direction: column; gap: 14px; margin-top: 22px; }
+.draft { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+.draft.published { opacity: 0.6; }
+.draft .row1 { display: flex; align-items: center; gap: 12px; }
+.draft .thumb { width: 46px; height: 46px; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.draft .name { font-weight: 600; font-size: 15px; }
+.draft .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.draft .spacer { flex: 1; }
+.draft .attrs { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: 13px; color: #c8c8c8; }
+.draft .attrs .k { color: #6f6f6f; }
+.draft .price .sell { color: var(--accent); font-weight: 600; }
+.draft .flags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.flag { font-size: 11px; padding: 2px 8px; border-radius: 999px; color: #e5a3a3; border: 1px solid rgba(229,120,120,0.3); background: rgba(229,120,120,0.08); }
+.conf { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.conf .bar { width: 54px; height: 5px; border-radius: 3px; background: var(--panel-2); overflow: hidden; }
+.conf .bar i { display: block; height: 100%; background: var(--accent); }
+.actions { display: flex; gap: 8px; margin-top: 14px; }
+.btn { font: inherit; font-size: 13px; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel-2); color: var(--text); cursor: pointer; }
+.btn.approve { background: var(--accent); color: #111; border-color: var(--accent); font-weight: 600; }
+.btn.reject:hover { border-color: #e57878; color: #e57878; }
+.status-tag { font-size: 11px; padding: 3px 9px; border-radius: 999px; }
+.status-tag.published { color: var(--green); border: 1px solid rgba(52,211,153,0.3); background: rgba(52,211,153,0.08); }
+.status-tag.rejected { color: var(--muted); border: 1px solid var(--border); }
