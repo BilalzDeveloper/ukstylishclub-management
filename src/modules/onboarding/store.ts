@@ -2,19 +2,26 @@
 // running server, resets on restart) and seeded so the review queue is populated.
 // Swap this module for a Prisma-backed repository once `prisma generate` can run
 // (blocked in the build sandbox — see src/lib/db.ts).
+import { loadCollection, saveCollection } from "@/lib/persist";
 import type { ProductDraft, DraftStatus } from "./types";
 
 interface StoreShape {
   drafts: Map<string, ProductDraft>;
-  seeded: boolean;
 }
 
 const g = globalThis as unknown as { __uksc_onboarding?: StoreShape };
-const store: StoreShape = (g.__uksc_onboarding ??= { drafts: new Map(), seeded: false });
+const store: StoreShape = (g.__uksc_onboarding ??= { drafts: load() });
 
-if (!store.seeded) {
-  seed();
-  store.seeded = true;
+function load(): Map<string, ProductDraft> {
+  const saved = loadCollection<ProductDraft>("drafts");
+  const list = saved ?? seed();
+  const map = new Map(list.map((d) => [d.id, d]));
+  if (!saved) saveCollection("drafts", list);
+  return map;
+}
+
+function persist(): void {
+  saveCollection("drafts", [...store.drafts.values()]);
 }
 
 export function listDrafts(): ProductDraft[] {
@@ -29,6 +36,7 @@ export function getDraft(id: string): ProductDraft | undefined {
 
 export function upsertDraft(draft: ProductDraft): void {
   store.drafts.set(draft.id, draft);
+  persist();
 }
 
 export function setStatus(
@@ -40,10 +48,11 @@ export function setStatus(
   if (!d) return undefined;
   const next = { ...d, ...patch, status };
   store.drafts.set(id, next);
+  persist();
   return next;
 }
 
-function seed(): void {
+function seed(): ProductDraft[] {
   const now = Date.now();
   const iso = (mins: number) => new Date(now - mins * 60_000).toISOString();
   const samples: ProductDraft[] = [
@@ -75,5 +84,5 @@ function seed(): void {
       confidence: 0.6, flags: [], shopifyProductId: "gid://shopify/Product/1234567890",
     },
   ];
-  for (const s of samples) store.drafts.set(s.id, s);
+  return samples;
 }

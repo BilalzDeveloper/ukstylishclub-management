@@ -48,6 +48,7 @@ export interface ProductDraft {
 
   confidence: number; // 0..1
   flags: string[]; // e.g. "missing price", "unknown vendor"
+  pricingNote?: string; // which margin rule set the sell price
 
   shopifyProductId?: string;
   source: "telegram";

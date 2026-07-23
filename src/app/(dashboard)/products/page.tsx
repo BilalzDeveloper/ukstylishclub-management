@@ -71,6 +71,7 @@ function DraftCard({ d }: { d: ProductDraft }) {
         <span className="price">
           <span className="k">Price</span> cost £{fmt(d.costPrice)} →{" "}
           <span className="sell">£{fmt(d.sellPrice)}</span>
+          {d.pricingNote && <span className="k"> · {d.pricingNote}</span>}
         </span>
       </div>
 

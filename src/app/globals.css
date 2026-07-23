@@ -132,3 +132,14 @@ footer.foot a { color: var(--muted); }
 .status-tag { font-size: 11px; padding: 3px 9px; border-radius: 999px; }
 .status-tag.published { color: var(--green); border: 1px solid rgba(52,211,153,0.3); background: rgba(52,211,153,0.08); }
 .status-tag.rejected { color: var(--muted); border: 1px solid var(--border); }
+
+/* Vendor table */
+.vtable { margin-top: 22px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.vrow { display: grid; grid-template-columns: 90px 90px minmax(160px, 1fr) 120px 150px 96px; gap: 12px; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+.vrow:last-child { border-bottom: none; }
+.vrow.vhead { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--panel); }
+.vrow:not(.vhead):hover { background: var(--panel); }
+.vcode { font-weight: 600; }
+.vloc { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; }
+.vact { color: #6f6f6f; font-size: 11px; }
+.btn.linkbtn { padding: 5px 10px; font-size: 12px; }

@@ -6,22 +6,22 @@ import { classify } from "@/lib/ai/extract";
 import { publishDraftToShopify } from "@/lib/shopify/products";
 import { shopifyConfigured } from "@/lib/shopify/client";
 import { collectionForType } from "@/config/catalog";
+import { computeSellPrice } from "@/modules/pricing/engine";
+import { touchVendor } from "@/modules/vendors/store";
 import { upsertDraft, getDraft, setStatus } from "./store";
 import type { ProductDraft, Submission } from "./types";
-
-// Vendor cost → proposed sell price. Placeholder margin until the M2 MarginRule
-// engine (docs/business-model.md) lands; always shown to the manager for review.
-const MARGIN = 1.55;
-export function proposeSellPrice(cost: number | null): number | null {
-  if (cost == null) return null;
-  return Math.floor(cost * MARGIN) + 0.99;
-}
 
 export async function ingestSubmission(sub: Submission): Promise<ProductDraft> {
   const caption = parseCaption(sub.caption);
   const cls = await classify(sub, caption.vendor);
 
   const collection = collectionForType(cls.productType);
+  const pricing = computeSellPrice(caption.costPrice, {
+    vendor: caption.vendor,
+    productType: cls.productType,
+    collection,
+  });
+  if (caption.vendor) touchVendor(caption.vendor);
   const flags: string[] = [];
   if (caption.costPrice == null) flags.push("missing price");
   if (!caption.vendor) flags.push("unknown vendor");
@@ -36,7 +36,7 @@ export async function ingestSubmission(sub: Submission): Promise<ProductDraft> {
     source: "telegram",
     vendor: caption.vendor,
     costPrice: caption.costPrice,
-    sellPrice: proposeSellPrice(caption.costPrice),
+    sellPrice: pricing.sellPrice,
     sizes: caption.sizes,
     colours: cls.colours,
     productType: cls.productType,
@@ -46,6 +46,7 @@ export async function ingestSubmission(sub: Submission): Promise<ProductDraft> {
     captionRaw: sub.caption,
     confidence: cls.confidence,
     flags,
+    pricingNote: pricing.note,
   };
   upsertDraft(draft);
   return draft;
