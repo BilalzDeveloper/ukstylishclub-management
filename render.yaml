@@ -1,0 +1,9 @@
+# Render blueprint — one-click deploy of the management console.
+# No env vars set → token-less DEMO mode, which is the only safe way to expose a
+# public URL until a login gate exists (the console has no auth yet). See docs/deploy.md.
+services:
+  - type: web
+    name: ukstylishclub-management
+    runtime: docker
+    plan: free
+    envVars: []

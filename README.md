@@ -9,6 +9,18 @@ customers order and pay by transfer (proof verified automatically), the manager
 approves the day's batch, and a pluggable courier collects from each vendor and
 delivers.
 
+## Try it live (token-less demo)
+
+One-click deploy in **safe demo mode** — no store tokens, seeded data, nothing
+touches the real store. (The console has no login yet, so only deploy token-less
+until a gate is added — see [`docs/deploy.md`](docs/deploy.md).)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/BilalzDeveloper/ukstylishclub-management) &nbsp;
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/BilalzDeveloper/ukstylishclub-management)
+
+Render (Docker, persistent) is best for clicking through the flow; Vercel is
+fastest for a look. Full guide: [`docs/deploy.md`](docs/deploy.md).
+
 > This repository grew out of **`uksc-onboarder`** (the original single-file
 > product-onboarding tool, now preserved in [`legacy/onboarder/`](legacy/onboarder/)).
 
