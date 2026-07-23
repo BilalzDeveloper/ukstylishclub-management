@@ -143,3 +143,10 @@ footer.foot a { color: var(--muted); }
 .vloc { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; }
 .vact { color: #6f6f6f; font-size: 11px; }
 .btn.linkbtn { padding: 5px 10px; font-size: 12px; }
+
+/* Pickup split rows */
+.pickup { display: grid; grid-template-columns: 70px minmax(120px, 1fr) 2fr 70px; gap: 12px; align-items: center; padding: 9px 12px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+.pu-vendor { font-weight: 600; }
+.pu-loc { color: var(--muted); font-size: 11px; }
+.pu-lines { color: #c8c8c8; }
+.pu-sub { text-align: right; color: var(--accent); }
