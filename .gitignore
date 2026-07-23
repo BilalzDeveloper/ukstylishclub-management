@@ -36,3 +36,7 @@ scratch/
 # Test / coverage
 coverage/
 .turbo/
+
+# Next.js generated
+next-env.d.ts
+*.tsbuildinfo
